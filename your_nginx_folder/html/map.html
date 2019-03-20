@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Map Demo</title>
+    <!--load Leaflet CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+    <!--loading juqery.js-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="map_tile.js"></script>
+    <style type="text/css">
+        #mapContainer {
+            height: 100%;
+            /*background-color: gray;*/
+            width: 100%;
+            position: absolute;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="mapContainer">
+    </div>
+</body>
+<script>    
+    var isCNUser = false;
+    $.ajax({
+        type:'GET',
+        url:'http://10.222.47.147:8080/api',
+        dataType:'json',
+        crossDomain:true,
+        success:function(data){
+            console.log(data);
+            var ip =  data['ip'];
+            console.log(ip);
+            var country =data['message']['country'];
+            var position = data['message']['ll']
+            if (country == 'CN'){
+                isCNUser =true;
+            }
+            drawMap(isCNUser, position);
+        },  
+        error:function(){
+            console.log('There have some unexpected problems! Be careful!');
+        }
+    })
+</script>
+
+</html>
