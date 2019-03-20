@@ -1,2 +1,2 @@
 # Local-Tiles-Server
-This projec aims to provide a solution about local tiles server
+This project aims to provide a solution about local tiles server
